@@ -165,6 +165,9 @@ installModulePkg <- function(modulePkg, moduleLibrary, prompt = interactive(), m
   if (is.null(moduleInfo))
     moduleInfo <- getModuleInfo(modulePkg)
   record <- recordFromModule(modulePkg, moduleInfo)
+
+  print(paste0("Im telling renv to install to '", moduleLibrary, "'"))
+
   renv::install(record, library = moduleLibrary, rebuild = TRUE, prompt = prompt)
   TRUE
 
@@ -197,7 +200,7 @@ recordFromModule <- function(modulePkg, moduleInfo) {
     Version   = moduleInfo[["Version"]],
     Path      = modulePkg,
     Source    = "Local",
-    Cacheable = TRUE
+    Cacheable = FALSE
   ))
   names(record) <- moduleInfo[["Package"]]
 
