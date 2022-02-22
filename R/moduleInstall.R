@@ -7,10 +7,19 @@ postInstallFixes <- function(folderToFix) {
   else
   {
     #We do not have that function available so we will need to start JASPEngine ourselves, but where is it?
+    old_PATH <- Sys.getenv("PATH")
+
+    #sometimes R.dll is not in the path on windows, despite this being called from R...
+    if(getOS() == "windows")
+        Sys.setenv("PATH"=paste(R.home(component='bin'), ';', old_PATH, sep="", collapse=""))
+  
     jaspEngineLocation <- Sys.getenv("JASPENGINE_LOCATION", unset = file.path(getwd(), "..", "JASPEngine"))
     jaspEngineCall     <- paste0(jaspEngineLocation, ' "', folderToFix ,'"')
     #print(paste0("Calling JASPEngine as: '", jaspEngineCall ,"'"))
     system(jaspEngineCall)
+
+    if(getOS() == "windows")
+        Sys.setenv("PATH"=old_PATH);
   }
 }
 
