@@ -74,6 +74,7 @@ runJaspResults <- function(name, title, dataKey, options, stateKey, functionCall
   #   compiler::enableJIT(0)
 
   if(!isFALSE(.Options[["jaspLegacyRngKind"]])) {
+    jaspTools:::emitLegacyRngWarning()
     rngKind <- RNGkind()
     RNGkind(sample.kind = "Rounding")  # R 3.6.0 changed its rng; this ensures that for the time being the results do not change
     on.exit(RNGkind(sample.kind = rngKind[[3]]), add = TRUE)
