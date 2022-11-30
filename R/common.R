@@ -93,7 +93,7 @@ runJaspResults <- function(name, title, dataKey, options, stateKey, functionCall
     location              <- .fromRCPP(".requestStateFileNameNative")
     oldwd                 <- getwd()
     setwd(location$root)
-    on.exit(setwd(oldwd))
+    on.exit(setwd(oldwd), add = TRUE)
   }
 
   analysis    <- eval(parse(text=functionCall))
@@ -107,7 +107,14 @@ runJaspResults <- function(name, title, dataKey, options, stateKey, functionCall
   registerFonts()
 
   # resets jaspGraphs::graphOptions & options after this function finishes
-  setOptionsCleanupHook()
+  # setOptionsCleanupHook()
+  oldGraphOptions <- jaspGraphs::graphOptions()
+  oldOptions <- options()
+
+  on.exit({
+    restoreOptions(oldOptions)
+    jaspGraphs::graphOptions(oldGraphOptions)
+  }, add = TRUE)
 
   # ensure an analysis always starts with a clean hashtable of computed jasp Objects
   emptyRecomputed()
