@@ -46,9 +46,10 @@ setOptionsCleanupHook <- function() {
   oldOptions <- options()
 
   withr::defer({
+    message("reseting options")
     restoreOptions(oldOptions)
     jaspGraphs::graphOptions(oldGraphOptions)
-  }, envir = parent.frame(2), priority = 1)
+  }, envir = parent.frame(2), priority = "first")
 
 }
 
@@ -57,7 +58,8 @@ setRng <- function() {
   rngKind <- RNGkind()
   RNGkind(sample.kind = "Rounding")  # R 3.6.0 changed its rng; this ensures that for the time being the results do not change
   withr::defer({
+    message("reseting rng")
     jaspTools:::emitLegacyRngWarning()
     RNGkind(sample.kind = rngKind[[3]])
-  }, envir = parent.frame(2), priority = 2)
+  }, envir = parent.frame(2), priority = "last")
 }
