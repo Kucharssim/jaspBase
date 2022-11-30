@@ -113,6 +113,7 @@ runJaspResults <- function(name, title, dataKey, options, stateKey, functionCall
   # ensure an analysis always starts with a clean hashtable of computed jasp Objects
   emptyRecomputed()
 
+  return(TRUE)
 
   analysisResult <-
     tryCatch(
@@ -144,8 +145,6 @@ runJaspResults <- function(name, title, dataKey, options, stateKey, functionCall
     finishJaspResults(jaspResultsCPP)
     return(jaspResults)
   }
-
-  return(TRUE)
 
   if (inherits(analysisResult, "jaspAnalysisAbort")) {
     jaspResultsCPP$send()
