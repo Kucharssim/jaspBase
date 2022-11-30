@@ -76,7 +76,10 @@ runJaspResults <- function(name, title, dataKey, options, stateKey, functionCall
   if(!isFALSE(.Options[["jaspLegacyRngKind"]])) {
     rngKind <- RNGkind()
     RNGkind(sample.kind = "Rounding")  # R 3.6.0 changed its rng; this ensures that for the time being the results do not change
-    on.exit(RNGkind(sample.kind = rngKind[[3]]), add = TRUE)
+    on.exit({
+      message("rng reset")
+      RNGkind(sample.kind = rngKind[[3]])
+    }, add = TRUE)
   }
 
   jaspResultsCPP        <- loadJaspResults(name)
@@ -112,6 +115,7 @@ runJaspResults <- function(name, title, dataKey, options, stateKey, functionCall
   oldOptions <- options()
 
   on.exit({
+    message("options reset")
     restoreOptions(oldOptions)
     jaspGraphs::graphOptions(oldGraphOptions)
   }, add = TRUE)
