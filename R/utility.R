@@ -43,9 +43,10 @@ setOptionsCleanupHook <- function() {
   oldGraphOptions <- jaspGraphs::graphOptions()
   oldOptions <- options()
 
-  withr::defer({
+  withr::defer_parent({
     restoreOptions(oldOptions)
     jaspGraphs::graphOptions(oldGraphOptions)
-  }, envir = parent.frame(2))
+  })
+  #}, envir = parent.frame(2))
 
 }
