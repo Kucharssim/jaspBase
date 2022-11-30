@@ -130,6 +130,8 @@ runJaspResults <- function(name, title, dataKey, options, stateKey, functionCall
       jaspAnalysisAbort=function(e) e
     )
 
+  message("emit some warning")
+  warning("some warning")
   if (!jaspResultsCalledFromJasp()) {
 
     if (inherits(analysisResult, "error")) {
