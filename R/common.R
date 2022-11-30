@@ -105,9 +105,9 @@ runJaspResults <- function(name, title, dataKey, options, stateKey, functionCall
     dataset <- do.call(.readDataSetToEnd, cols)
   }
 
-  return(TRUE)
   registerFonts()
 
+  return(TRUE)
   # resets jaspGraphs::graphOptions & options after this function finishes
   setOptionsCleanupHook()
 
