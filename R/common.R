@@ -110,15 +110,15 @@ runJaspResults <- function(name, title, dataKey, options, stateKey, functionCall
   registerFonts()
 
   # resets jaspGraphs::graphOptions & options after this function finishes
-  # setOptionsCleanupHook()
-  oldGraphOptions <- jaspGraphs::graphOptions()
-  oldOptions <- options()
-
-  on.exit({
-    message("options reset")
-    restoreOptions(oldOptions)
-    jaspGraphs::graphOptions(oldGraphOptions)
-  }, add = TRUE)
+  setOptionsCleanupHook()
+  # oldGraphOptions <- jaspGraphs::graphOptions()
+  # oldOptions <- options()
+  #
+  # on.exit({
+  #   message("options reset")
+  #   restoreOptions(oldOptions)
+  #   jaspGraphs::graphOptions(oldGraphOptions)
+  # }, add = TRUE)
 
   # ensure an analysis always starts with a clean hashtable of computed jasp Objects
   emptyRecomputed()
