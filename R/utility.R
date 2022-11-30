@@ -48,7 +48,6 @@ setOptionsCleanupHook <- function() {
   withr::defer({
     restoreOptions(oldOptions)
     jaspGraphs::graphOptions(oldGraphOptions)
-    jaspTools:::emitLegacyRngWarning()
   }, envir = parent.frame(2))
 
 }
