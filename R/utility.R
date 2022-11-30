@@ -49,7 +49,7 @@ setOptionsCleanupHook <- function() {
     message("reseting options")
     restoreOptions(oldOptions)
     jaspGraphs::graphOptions(oldGraphOptions)
-  }, envir = parent.frame(2), priority = "first")
+  }, envir = parent.frame(1), priority = "first")
 
 }
 
@@ -61,5 +61,5 @@ setRng <- function() {
     message("reseting rng")
     jaspTools:::emitLegacyRngWarning()
     RNGkind(sample.kind = rngKind[[3]])
-  }, envir = parent.frame(2), priority = "last")
+  }, envir = parent.frame(1), priority = "last")
 }
