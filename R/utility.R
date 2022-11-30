@@ -51,3 +51,13 @@ setOptionsCleanupHook <- function() {
   }, envir = parent.frame(2))
 
 }
+
+setRng <- function() {
+  if(isFALSE(.Options[["jaspLegacyRngKind"]])) return()
+  rngKind <- RNGkind()
+  RNGkind(sample.kind = "Rounding")  # R 3.6.0 changed its rng; this ensures that for the time being the results do not change
+  withr::defer({
+    jaspTools:::emitLegacyRngWarning()
+    RNGkind(sample.kind = rngKind[[3]])
+  }, envir = parent.frame(2))
+}
