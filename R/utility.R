@@ -33,7 +33,9 @@ restoreOptions <- function(oldOptions) {
   # [1] 1
 
   newOptions <- options()
-  oldOptions[setdiff(names(newOptions), names(oldOptions))] <- list(NULL)
+  sdf <- setdiff(names(newOptions), names(oldOptions))
+  message(paste(sdf, collapse = ", "))
+  oldOptions[sdf] <- list(NULL)
   options(oldOptions)
 
 }
@@ -46,6 +48,7 @@ setOptionsCleanupHook <- function() {
   withr::defer({
     restoreOptions(oldOptions)
     jaspGraphs::graphOptions(oldGraphOptions)
+    jaspTools:::emitLegacyRngWarning()
   }, envir = parent.frame(2))
 
 }
