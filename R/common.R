@@ -105,6 +105,7 @@ runJaspResults <- function(name, title, dataKey, options, stateKey, functionCall
     dataset <- do.call(.readDataSetToEnd, cols)
   }
 
+  return(TRUE)
   registerFonts()
 
   # resets jaspGraphs::graphOptions & options after this function finishes
@@ -113,7 +114,6 @@ runJaspResults <- function(name, title, dataKey, options, stateKey, functionCall
   # ensure an analysis always starts with a clean hashtable of computed jasp Objects
   emptyRecomputed()
 
-  return(TRUE)
 
   analysisResult <-
     tryCatch(
